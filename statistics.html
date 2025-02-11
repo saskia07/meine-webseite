@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/min/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-moment@0.1.1"></script>
+</head>
+<body>
+  <header>
+    <a href="#" class="logo">LOGO</a>
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar">Menu</label>
+  
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="sleepSettings.html">Schlafeinstellungen</a></li>
+        <li><a class="active" href="infos.html">Infos</a></li>
+        <li><a href="statistics.html">Statistik</a></li>
+        <li><a href="contact.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container-statistics">
+    <div class="question">
+        <h2>Wie hoch ist dein Stresslevel auf einer Skala von 1 bis 10?</h2>
+            <p>1 bedeutet niedrig und 10 bedeutet hoch.</p>
+   
+        <div class="number-bar">
+            <!-- Leiste mit den Zahlen von 1 bis 10 -->
+            <div data-number="1">1</div>
+            <div data-number="2">2</div>
+            <div data-number="3">3</div>
+            <div data-number="4">4</div>
+            <div data-number="5">5</div>
+            <div data-number="6">6</div>
+            <div data-number="7">7</div>
+            <div data-number="8">8</div>
+            <div data-number="9">9</div>
+            <div data-number="10">10</div>
+        </div>
+    </div>
+
+    <canvas id="chart" width="600" height="400"></canvas>
+
+
+<table id="data-table">
+    <thead>
+        <tr>
+            <th>Wert</th>
+            <th>Datum</th>
+            <th>Zeit</th>
+            <th>Aktion</th>
+        </tr>
+    </thead>
+    <tbody id="table-body">
+    </tbody>
+</table>
+
+
+</div>
+
+  <script>
+    document.querySelectorAll('.number-bar div').forEach(function(element) {
+  element.addEventListener('click', function() {
+  const value = this.getAttribute('data-number');
+  const now = new Date();
+  const date = now.toLocaleDateString('de-DE');
+  const time = now.toLocaleTimeString('de-DE');
+  const timestamp = now.toISOString(); // Use ISO string for precise time
+  
+      const newRow = document.createElement('tr');
+  
+      const numberCell = document.createElement('td');
+      numberCell.textContent = value;
+  
+      const dateCell = document.createElement('td');
+      dateCell.textContent = date;
+  
+      const timeCell = document.createElement('td');
+      timeCell.textContent = time;
+  
+      const actionCell = document.createElement("td");
+      const deleteButton = document.createElement("button");
+      deleteButton.textContent = "Delete";
+      deleteButton.className = "delete-button";
+      deleteButton.addEventListener("click", function() {
+          removeDataFromChart(value, timestamp);
+          newRow.remove();
+      });
+      actionCell.appendChild(deleteButton);
+
+      newRow.appendChild(numberCell);
+      newRow.appendChild(dateCell);
+      newRow.appendChild(timeCell);
+      newRow.appendChild(actionCell);
+  
+      const tableBody = document.getElementById('table-body');
+      tableBody.appendChild(newRow);
+  
+      // Add data to the chart
+      addDataToChart(value, timestamp);
+  });
+  });
+
+  
+  const ctx = document.getElementById('chart').getContext('2d');
+  const chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+              labels: [],
+              datasets: [{
+                  label: 'stress level',
+                  data: [],
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  borderWidth: 1,
+                  fill: false
+      }]
+  },
+  options: {
+      scales: {
+          x: {
+              type: 'time',
+              time: {
+                  unit: 'minute',
+                  tooltipFormat: 'DD.MM.YYYY HH:mm:ss',
+                  displayFormats: {
+                  minute: 'HH:mm:ss'
+           }
+          },
+      title: {
+          display: true,
+          text: 'time'
+              }
+          },
+          y: {
+              min: 0,
+              max: 10,
+              title: {
+                  display: true,
+                  text: 'value'
+              }
+          }
+      },
+      plugins: {
+          legend: {
+                      display: true
+          }
+      },
+      backgroundColor: "#ffffff"
+  }
+});
+  
+  function addDataToChart(number, timestamp) {
+  chart.data.labels.push(timestamp);
+  chart.data.datasets[0].data.push(number);
+  chart.update();
+  }
+
+  function removeDataFromChart(number, timestamp) {
+      const index = chart.data.labels.indexOf(timestamp);
+      if (index > -1) {
+          chart.data.labels.splice(index, 1);
+          chart.data.datasets[0].data.splice(index, 1);
+          chart.update();
+      }
+  }
+  </script>
+</body>
+</html>

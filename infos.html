@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Infos</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <a href="#" class="logo">LOGO</a>
+    <input type="checkbox" id="menu-bar">
+    <label for="menu-bar">Menu</label>
+  
+    <nav class="navbar">
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="sleepSettings.html">Schlafeinstellungen</a></li>
+        <li><a class="active" href="infos.html">Infos</a></li>
+        <li><a href="statistics.html">Statistik</a></li>
+        <li><a href="contact.html">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="wrapper">
+    <h2>Aktuelle Umweltdaten</h2>
+    <div class="weather-container">
+      <div id="temperature">Temperatur: Lade...</div>
+      <div id="co2">CO2 Gehalt: Lade...</div>
+    </div>
+
+    <div class="ideal-values">
+        <h3>Idealwerte:</h3>
+        <div id="idealTemperature">
+          <p>Temperatur: <strong>18-22°C</strong></p>
+          <p id="temperatureStatus"></p>
+        </div>
+        <div id="idealCO2">
+          <p>CO2 Gehalt: <strong>400-1000 ppm</strong></p>
+          <p id="co2Status"></p>
+        </div>
+      </div>
+
+    <div class="links-container">
+      <p>Tipps: wie kann die Raumumgebung beeinflusst werden:</p>
+      <ul>
+        <li><a href="temperatureInfo.html">Wie kann man die Temperatur in einem Raum beeinflussen?</a></li>
+        <li><a href="co2Info.html">Wie kann man den CO2-Gehalt in einem Raum senken?</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
