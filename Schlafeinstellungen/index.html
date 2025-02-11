@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Alarm App</title>
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Font Awesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins&family=Roboto+Mono:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+
+    <header>
+      <a href="#" class="logo">LOGO</a>
+
+      <input type="checkbox" id="menu-bar">
+      <label for="menu-bar">Menu</label>
+
+      <nav class="navbar">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="sleepSettings.html">Schlafeinstellungen</a></li>
+            <li><a href="statistics.html">Statistik</a></li>
+            <li><a href="infos.html">Infos</a></li>
+            <li><a href="contact.html">Kontakt</a></li>
+
+        </ul>
+
+    </nav>
+</header>
+
+    
+
+<script src="script.js"></script>
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js')
+      .then(function(registration) {
+        console.log('Service Worker registriert:', registration);
+      })
+      .catch(function(error) {
+        console.log('Fehler bei der Service Worker Registrierung:', error);
+      });
+  }
+</script>
+
+</body>
+</html>
